@@ -22,8 +22,14 @@ app.UseHttpsRedirection();
 List<Category> categories = new List<Category>();
 
 app.MapGet( "/", () =>"My First Project");
-//Get Mathod.............................!
-app.MapGet("/api/categories", ()=>{
+//Get Mathod.............................! 
+app.MapGet("/api/categories", ( [FromQuery]string searchValue="")=>{
+  Console.WriteLine($"{searchValue}");
+  if(!String.IsNullOrEmpty(searchValue)){
+   var searchValueCategory = categories.Where(c =>c.Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase)).ToList();
+      return Results.Ok(searchValueCategory);
+  }
+  
   return Results.Ok(categories); // 200
 });
 
@@ -42,20 +48,20 @@ app.MapPost("/api/categories", ([FromBody] Category CategoryInData) =>{
 });
 
 //Put Mathod...........................! 
-app.MapPut("/api/categories", ()=>{
-  var FoundCategory = categories.FirstOrDefault(category => category.CategoryId ==Guid.Parse("ed7b8745-bb62-4e59-928f-6ed031d2ff1e"));
+app.MapPut("/api/categories/{categoryId}",( Guid categoryId ,[FromBody] Category CategoryInData)=>{
+  var FoundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
 
   if(FoundCategory == null){
     return Results.NotFound("This Category in Update is not found.......");
   }
-  FoundCategory.Name = "smart category";
-  FoundCategory.Description = "My Smary Phone";
+  FoundCategory.Name = CategoryInData.Name;
+  FoundCategory.Description = CategoryInData.Description;
   return Results.NoContent(); //204
 });
 
 //Delete Mathod...........................! 
-app.MapDelete("/api/categories", ()=>{
-  var FoundCategory = categories.FirstOrDefault(category => category.CategoryId == Guid.Parse("ed7b8745-bb62-4e59-928f-6ed031d2ff1e"));
+app.MapDelete("/api/categories/{categoryId}", (Guid categoryId)=>{
+  var FoundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
   if(FoundCategory == null){
     return  Results.NotFound("Category with this is does Not Exist..");
   }
@@ -72,7 +78,7 @@ app.Run();
 public record Category
 {
   public Guid CategoryId{get; set;}
-  public String? Name{get; set;}
+  public String Name{get; set;}
   public String? Description{get; set;}
   public DateTime CreateTime{get; set;}
 
