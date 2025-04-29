@@ -6,6 +6,13 @@ GET  http://localhost:5230/api/categories
 ###
 
 POST http://localhost:5230/api/categories
+Content-Type: application/json
+
+{
+   "name": "Electronics",
+   "description": "Devices and gadgets"
+}
+
 ###
 
 PUT http://localhost:5230/api/categories
