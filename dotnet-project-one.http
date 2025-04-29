@@ -2,20 +2,27 @@
 GET  http://localhost:5230
 ###
 
-GET  http://localhost:5230/api/categories
+//Query paramiter==?search="apple"
+GET  http://localhost:5230/api/categories?searchValue=Electorinics
 ###
 
 POST http://localhost:5230/api/categories
 Content-Type: application/json
 
 {
-   "name": "Electronics",
-   "description": "Devices and gadgets"
+   "name": "laptop.",
+   "description": "Good laptop.."
 }
 
 ###
 
-PUT http://localhost:5230/api/categories
+PUT http://localhost:5230/api/categories/f555fa3f-9382-473a-8bb4-4ddf4d44e1d4
+ Content-Type: application/json
+
+{
+   "name": "vivo Phone",
+   "description": "Good vivo phone.."
+}
 ###
 
-DELETE http://localhost:5230/api/categories
+DELETE http://localhost:5230/api/categories/53d0e8a0-8aab-454b-befb-1ca4267de0aa
