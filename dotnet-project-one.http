@@ -3,25 +3,27 @@ GET  http://localhost:5230
 ###
 
 //Query paramiter==?search="apple"
-GET  http://localhost:5230/api/categories?searchValue=Electorinics
+//GET  http://localhost:5230/api/categories?searchValue=Electorinics
+GET  http://localhost:5230/api/categories
 ###
 
 POST http://localhost:5230/api/categories
 Content-Type: application/json
 
 {
-   "name": "laptop.",
-   "description": "Good laptop.."
+   "name":"nokia",
+   "description": "My smart nokia."
+   
 }
 
 ###
 
-PUT http://localhost:5230/api/categories/f555fa3f-9382-473a-8bb4-4ddf4d44e1d4
+PUT http://localhost:5230/api/categories/a1543ccc-d992-47a4-a378-8d6ef4033143
  Content-Type: application/json
 
 {
-   "name": "vivo Phone",
-   "description": "Good vivo phone.."
+  "name": "bds",
+   "description": "" 
 }
 ###
 
