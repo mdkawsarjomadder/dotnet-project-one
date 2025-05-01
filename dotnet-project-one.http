@@ -21,9 +21,9 @@ Content-Type: application/json
 
 
 {
-  "name": "",
+  "name":"Laptop",
   "description":"" 
 }
 ###
 
-DELETE http://localhost:5230/api/categories
+DELETE http://localhost:5230/api/categories/3c72ae74-2a46-4e3a-972a-b6ad08dd3a35
