@@ -11,20 +11,19 @@ POST http://localhost:5230/api/categories
 Content-Type: application/json
 
 {
-   "name":"nokia",
-   "description": "My smart nokia."
-   
+   "name":"Redmi 13Pro",
+   "description": "My Redmi Phone."
 }
-
 ###
 
-PUT http://localhost:5230/api/categories/a1543ccc-d992-47a4-a378-8d6ef4033143
- Content-Type: application/json
+PUT http://localhost:5230/api/categories/043da262-52c6-4060-b4c7-7269c7f5b79c
+Content-Type: application/json
+
 
 {
-  "name": "bds",
-   "description": "" 
+  "name": "",
+  "description":"" 
 }
 ###
 
-DELETE http://localhost:5230/api/categories/53d0e8a0-8aab-454b-befb-1ca4267de0aa
+DELETE http://localhost:5230/api/categories
