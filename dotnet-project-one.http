@@ -10,20 +10,19 @@ GET  http://localhost:5230/api/categories
 POST http://localhost:5230/api/categories
 Content-Type: application/json
 
-{
-   "name":"Redmi 13Pro",
-   "description": "My Redmi Phone."
+{ 
+  "name" :"Redmi Node 12pro",
+  "description": "Electronics is redmi of devices ."
 }
 ###
 
-PUT http://localhost:5230/api/categories/043da262-52c6-4060-b4c7-7269c7f5b79c
+PUT http://localhost:5230/api/categories/602c6c7c-928a-4848-b4b2-47057606c15d
 Content-Type: application/json
-
 
 {
   "name":"Laptop",
-  "description":"" 
+  "description":"My Very laptop" 
 }
 ###
 
-DELETE http://localhost:5230/api/categories/3c72ae74-2a46-4e3a-972a-b6ad08dd3a35
+DELETE http://localhost:5230/api/categories/09edbc9a-b572-4618-89a4-1bc5bb5adea7
