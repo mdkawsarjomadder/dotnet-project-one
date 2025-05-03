@@ -1,45 +1,63 @@
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
-var builder = WebApplication.CreateBuilder(args);
+   var builder = WebApplication.CreateBuilder(args);
+
+   builder.Services.AddControllers();
+   //add service to the conntroller....................!
+   builder.Services.Configure<ApiBehaviorOptions>(Options =>{
+   Options.InvalidModelStateResponseFactory= Context =>
+   {
+   var errors = Context.ModelState
+      .Where(e =>e.Value != null && e.Value.Errors.Count>0)
+      .Select(e => new{
+      Filed = e.Key,
+      Errors =e.Value != null ? e.Value.Errors.Select(x => x.ErrorMessage).ToArray() : new string[0]
+      }).ToList();
+   //   var errorString = string.Join(";",errors.Select(e =>$"{e.Filed} : {string.Join(",",e.Errors)}"));  
+
+   return new BadRequestObjectResult(new 
+   {
+      Message = "Validation Failed",
+      Errors = errors
+   });
+   };
+
+   });
+   builder.Services.AddEndpointsApiExplorer();
+   builder.Services.AddSwaggerGen();
 
 
-//add service to the conntroller....................!
-builder.Services.AddControllers();
+   var app = builder.Build();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+   if(app.Environment.IsDevelopment())
+      {
+      app.UseSwagger();
+      app.UseSwaggerUI();
+      }
 
-
-var app = builder.Build();
-
-if(app.Environment.IsDevelopment())
-{
-app.UseSwagger();
-app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
+   app.UseHttpsRedirection();
 
 
 
-app.MapGet( "/", () =>"My First Project");
-/*
-//Get Mathod.............................! 
-// app.MapGet("/api/categories", ([FromBody] string searchValue )=>{});
+   app.MapGet( "/", () =>"My First Project");
+   /*
+   //Get Mathod.............................! 
+   // app.MapGet("/api/categories", ([FromBody] string searchValue )=>{});
 
-//Post Method.........................!
-// app.MapPost("/api/categories", ([FromBody] Category CategoryInData) =>{});
+   //Post Method.........................!
+   // app.MapPost("/api/categories", ([FromBody] Category CategoryInData) =>{});
 
-//Put Mathod...........................! 
-// app.MapPut("/api/categories/{categoryId:guid}",( Guid categoryId ,[FromBody] Category CategoryInData)=>{});
+   //Put Mathod...........................! 
+   // app.MapPut("/api/categories/{categoryId:guid}",( Guid categoryId ,[FromBody] Category CategoryInData)=>{});
 
-//Delete Mathod...........................! 
-//app.MapDelete("/api/categories/{categoryId:guid}", (Guid categoryId)=>{});
+   //Delete Mathod...........................! 
+   //app.MapDelete("/api/categories/{categoryId:guid}", (Guid categoryId)=>{});
 
-*/
+   */
 
-app.MapControllers();
-app.Run();
+   app.MapControllers();
+   app.Run();
 
 
