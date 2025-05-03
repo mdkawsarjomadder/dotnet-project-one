@@ -7,7 +7,7 @@ namespace dotnet_project_one.DTOs
     public class CreateCategoryReadDto
     {
         public Guid CategoryId{get; set;}
-        public String Name{get; set;}
+        public String Name{get; set;} = string.Empty;
         public String Description{get; set;} = string.Empty;
         public DateTime CreateTime{get; set;}   
     }
