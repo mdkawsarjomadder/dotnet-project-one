@@ -34,7 +34,7 @@ private static List<Category> Categories = new List<Category>();
         CreateTime = c.CreateTime
         }).ToList();
 
-    return Ok(CategoryToList);
+    return Ok(ApiResponse<List<CreateCategoryReadDto>>.SuccessRespons (CategoryToList,200,"Category Returen Successfuly..."));
 }//Get End
 
 
@@ -76,22 +76,29 @@ private static List<Category> Categories = new List<Category>();
         CreateTime = newCategory.CreateTime
     };
 
-    return Created($"/api/categories{newCategory.CategoryId}",CategoryReadDto);
+    return Created($"/api/categories{newCategory.CategoryId}",
+    
+    ApiResponse<CreateCategoryReadDto>.SuccessRespons (CategoryReadDto,201,"Category Create in Successfuly..."));
     }       //End
     
 //put:/api/categories{categoryId} = Update in Categories .........................// start....!
     [HttpPut("{categoryId:guid}")]
-    public IActionResult UpdateCategoryInId( Guid categoryId ,[FromBody] CreateCategoryUpdateDto CategoryInData){
-        if(CategoryInData == null){
-        return BadRequest("Category with this id does not missing");
-        }
+    public IActionResult UpdateCategoryInId( Guid categoryId ,[FromBody] CreateCategoryUpdateDto CategoryInData)
+    {
+        // if(CategoryInData == null){
+        //     return BadRequest("Category with this id does not missing");
+        //     }
         var FoundCategory = Categories.FirstOrDefault(category => category.CategoryId == categoryId);
-
         if(FoundCategory == null){
-        return NotFound("This Category in Update is not found.......");
+          return NotFound(ApiResponse<object>.ErrorsRespons(new List<string> {"Category is not Found with this Id is missing"},400, "Validation is Failed.!"));
         }
+        FoundCategory.Name = CategoryInData.Name;
+        FoundCategory.Description = CategoryInData.Description;
 
-        if(!string.IsNullOrEmpty(CategoryInData.Name)){
+        return Ok(ApiResponse<object>.SuccessRespons (null,204,"Category Update in Successfuly...")); //204
+    }
+
+       /* if(!string.IsNullOrEmpty(CategoryInData.Name)){
         if(CategoryInData.Name.Length >= 2){
         FoundCategory.Name = CategoryInData.Name;
         }  else{
@@ -101,18 +108,19 @@ private static List<Category> Categories = new List<Category>();
         if(!string.IsNullOrWhiteSpace(CategoryInData.Description)){
         FoundCategory.Description = CategoryInData.Description;
         }
-    return NoContent(); //204
+    return Ok(ApiResponse<object>.SuccessRespons (null,204,"Category Update in Successfuly...")); //204
     } //End
-
+*/
     //Delete:/api/categories = Delete in a Categories .........................// start....!
     [HttpDelete("{categoryId:guid}")]
     public IActionResult DeleteCategory(Guid categoryId){
     var FoundCategory = Categories.FirstOrDefault(category => category.CategoryId == categoryId);
         if(FoundCategory == null){
-        return  NotFound("Category with this is does Not Exist..");
+            return NotFound(ApiResponse<object>.ErrorsRespons(new List<string> {"Category with this Id does not exist..!"},400,"Validation is Failed.!"));
+
         }
     Categories.Remove(FoundCategory);
-    return NoContent();
+    return Ok(ApiResponse<object>.SuccessRespons(null,204,"Category Delete In Successful...!"));
     } //end
 
 
