@@ -7,6 +7,10 @@ GET  http://localhost:5230
 GET  http://localhost:5230/api/categories
 ###
 
+//Category By Id In single................
+GET  http://localhost:5230/api/categories/7f92d6ec-efe6-4087-a0e4-75311332003a
+###
+
 POST http://localhost:5230/api/categories
 Content-Type: application/json
 
