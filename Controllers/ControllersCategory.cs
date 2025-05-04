@@ -1,5 +1,6 @@
 using System;
 using System.Buffers;
+using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,6 +36,30 @@ private static List<Category> Categories = new List<Category>();
         }).ToList();
 
     return Ok(ApiResponse<List<CreateCategoryReadDto>>.SuccessRespons (CategoryToList,200,"Category Returen Successfuly..."));
+}//Get End
+//Get:/api/categories/{categoryId} = read categories in categoryById..............................!
+    [HttpGet("{categoryId:guid}")]
+    public IActionResult GetGategoryById(Guid categoryId)
+    {
+        var FoundCategory = Categories.FirstOrDefault(c => c.CategoryId == categoryId);
+         if(FoundCategory == null){
+          return NotFound(ApiResponse<object>.ErrorsRespons(new List<string> {"Category is not Found with this Id is missing"},400, "Validation is Failed.!"));
+        }
+    /* if (!string.IsNullOrEmpty(searchValue))
+    {
+    var searchValueCategory = Categories
+    .Where(c => c.Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase))
+    .ToList();
+    return Ok(searchValueCategory);
+    }*/
+    var CategoryReadById =  new CreateCategoryReadDto{
+        CategoryId = FoundCategory.CategoryId,
+        Name = FoundCategory.Name,
+        Description = FoundCategory.Description,
+        CreateTime = FoundCategory.CreateTime
+        };
+
+    return Ok(ApiResponse<CreateCategoryReadDto>.SuccessRespons (CategoryReadById,200,"Category Returen is Successfuly..."));
 }//Get End
 
 
