@@ -16,13 +16,13 @@ Content-Type: application/json
 }
 ###
 
-PUT http://localhost:5230/api/categories/602c6c7c-928a-4848-b4b2-47057606c15d
+PUT http://localhost:5230/api/categories/29861181-5895-4d53-b090-3200d52d18d1
 Content-Type: application/json
 
 {
   "name":"Laptop",
-  "description":"My Very laptop" 
+  "description":"How do I type and print a letter on my laptop?" 
 }
 ###
 
-DELETE http://localhost:5230/api/categories/09edbc9a-b572-4618-89a4-1bc5bb5adea7
+DELETE http://localhost:5230/api/categories/8a55f0f0-7cfa-4f63-981c-0bd207a99fa6
