@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using dotnet_project_one.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -9,19 +10,20 @@ using Microsoft.Extensions.Options;
    builder.Services.Configure<ApiBehaviorOptions>(Options =>{
    Options.InvalidModelStateResponseFactory= Context =>
    {
+   // var errors = Context.ModelState
+   //    .Where(e =>e.Value != null && e.Value.Errors.Count>0)
+   //    .Select(e => new{
+   //    Filed = e.Key,
+   //    Errors =e.Value != null ? e.Value.Errors.Select(x => x.ErrorMessage).ToArray() : new string[0]
+   //    }).ToList();
+
+     //var errorString = string.Join(";",errors.Select(e =>$"{e.Filed} : {string.Join(",",e.Errors)}"));  
+
+
    var errors = Context.ModelState
       .Where(e =>e.Value != null && e.Value.Errors.Count>0)
-      .Select(e => new{
-      Filed = e.Key,
-      Errors =e.Value != null ? e.Value.Errors.Select(x => x.ErrorMessage).ToArray() : new string[0]
-      }).ToList();
-   //   var errorString = string.Join(";",errors.Select(e =>$"{e.Filed} : {string.Join(",",e.Errors)}"));  
-
-   return new BadRequestObjectResult(new 
-   {
-      Message = "Validation Failed",
-      Errors = errors
-   });
+      .SelectMany(e => e.Value?.Errors != null ? e.Value.Errors.Select(x =>x.ErrorMessage):new List<String>()).ToList();
+   return new BadRequestObjectResult(ApiResponse<object>.ErrorsRespons(errors,400,"Validation Failed!"));
    };
 
    });
