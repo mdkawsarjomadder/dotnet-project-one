@@ -4,14 +4,14 @@ GET  http://localhost:5230
 
 //Query paramiter==?search="apple"
 //GET  http://localhost:5230/api/categories?searchValue=Electorinics
-GET  http://localhost:5230/api/categories
+GET  http://localhost:5230/v1/api/categories
 ###
 
 //Category By Id In single................
-GET  http://localhost:5230/api/categories/7f92d6ec-efe6-4087-a0e4-75311332003a
+GET  http://localhost:5230/v1/api/categories
 ###
 
-POST http://localhost:5230/api/categories
+POST http://localhost:5230/v1/api/categories
 Content-Type: application/json
 
 { 
@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 ###
 
-PUT http://localhost:5230/api/categories/29861181-5895-4d53-b090-3200d52d18d1
+PUT http://localhost:5230/v1/api/categories
 Content-Type: application/json
 
 {
@@ -29,4 +29,4 @@ Content-Type: application/json
 }
 ###
 
-DELETE http://localhost:5230/api/categories/8a55f0f0-7cfa-4f63-981c-0bd207a99fa6
+DELETE http://localhost:5230/v1/api/categories
