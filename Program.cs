@@ -1,16 +1,20 @@
 using System.ComponentModel;
 using dotnet_project_one.Controllers;
+using dotnet_project_one.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
    var builder = WebApplication.CreateBuilder(args);
+
+   //? register Service.................!
+   builder.Services.AddSingleton<CategoryServices>();
 
    builder.Services.AddControllers();
    //add service to the conntroller....................!
    builder.Services.Configure<ApiBehaviorOptions>(Options =>{
    Options.InvalidModelStateResponseFactory= Context =>
    {
-   // var errors = Context.ModelState
+  /* // var errors = Context.ModelState
    //    .Where(e =>e.Value != null && e.Value.Errors.Count>0)
    //    .Select(e => new{
    //    Filed = e.Key,
@@ -18,7 +22,7 @@ using Microsoft.Extensions.Options;
    //    }).ToList();
 
      //var errorString = string.Join(";",errors.Select(e =>$"{e.Filed} : {string.Join(",",e.Errors)}"));  
-
+*/
 
    var errors = Context.ModelState
       .Where(e =>e.Value != null && e.Value.Errors.Count>0)
