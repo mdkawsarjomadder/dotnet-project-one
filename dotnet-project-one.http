@@ -8,25 +8,25 @@ GET  http://localhost:5230/v1/api/categories
 ###
 
 //Category By Id In single................
-GET  http://localhost:5230/v1/api/categories
+GET  http://localhost:5230/v1/api/categories/48eb0bc8-fc41-420d-a274-242dbe299306
 ###
 
 POST http://localhost:5230/v1/api/categories
 Content-Type: application/json
 
 { 
-  "name" :"Redmi Node 12pro",
-  "description": "Electronics is redmi of devices ."
+  "name" :"Redmi note 12Pro",
+  "description": "Electronics is Divaice."
 }
 ###
 
-PUT http://localhost:5230/v1/api/categories
+PUT http://localhost:5230/v1/api/categories/48eb0bc8-fc41-420d-a274-242dbe299306
 Content-Type: application/json
 
 {
-  "name":"Laptop",
-  "description":"How do I type and print a letter on my laptop?" 
+  "name":"Redmi Node 15Pro",
+  "description":"How do I type and print a letter on my Phone?" 
 }
 ###
 
-DELETE http://localhost:5230/v1/api/categories
+DELETE http://localhost:5230/v1/api/categories/6835b638-60f6-4d15-9308-f88765d6389f
